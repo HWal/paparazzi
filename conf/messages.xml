@@ -461,6 +461,7 @@
    <field name="adc" type="uint16"/>
    <field name="offset" type="uint16"/>
    <field name="scaled" type="float"/>
+   <field name="AIR_DENSITY" type="float" unit="kg/m3"/>
  </message>
 
  <message name="PBN" id="58">
@@ -905,14 +906,26 @@
     <field name="temp"   type="float" unit="deg_celsius" format="%.2f"/>
   </message>
 
-  <message name="BARO_MS5611" id="116">
+<!-- <message name="BARO_MS5611" id="116">
     <field name="d1"       type="uint32"/>
     <field name="d2"       type="uint32"/>
     <field name="pressure" type="float" unit="hPa" format="%.2f"/>
     <field name="temp"     type="float" unit="deg_celsius" format="%.2f"/>
+  </message> -->
+
+  <message name="BARO_MS5611" id="116">
+    <field name="d1_1"              type="uint32"/>
+    <field name="d2_1"              type="uint32"/>
+    <field name="pressure_1"        type="float" unit="hPa" format="%.2f"/>
+    <field name="temp_1"            type="float" unit="deg_celsius" format="%.2f"/>
+    <field name="d1_2"              type="uint32"/>
+    <field name="d2_2"              type="uint32"/>
+    <field name="pressure_2"        type="float" unit="hPa" format="%.2f"/>
+    <field name="temp_2"            type="float" unit="deg_celsius" format="%.2f"/>
+    <field name="fixed_offset_1_2"  type="int32"/>
   </message>
 
-  <message name="MS5611_COEFF" id="117">
+<!-- <message name="MS5611_COEFF" id="117">
     <field name="c0" type="uint16"/>
     <field name="c1" type="uint16"/>
     <field name="c2" type="uint16"/>
@@ -921,6 +934,25 @@
     <field name="c5" type="uint16"/>
     <field name="c6" type="uint16"/>
     <field name="c7" type="uint16"/>
+  </message> -->
+
+  <message name="MS5611_COEFF" id="117">
+    <field name="c0_1" type="uint16"/>
+    <field name="c1_1" type="uint16"/>
+    <field name="c2_1" type="uint16"/>
+    <field name="c3_1" type="uint16"/>
+    <field name="c4_1" type="uint16"/>
+    <field name="c5_1" type="uint16"/>
+    <field name="c6_1" type="uint16"/>
+    <field name="c7_1" type="uint16"/>
+    <field name="c0_2" type="uint16"/>
+    <field name="c1_2" type="uint16"/>
+    <field name="c2_2" type="uint16"/>
+    <field name="c3_2" type="uint16"/>
+    <field name="c4_2" type="uint16"/>
+    <field name="c5_2" type="uint16"/>
+    <field name="c6_2" type="uint16"/>
+    <field name="c7_2" type="uint16"/>
   </message>
 
   <message name="ATMOSPHERE_CHARGE" id="118">
@@ -2159,7 +2191,18 @@
       <field name="yaw_c"  type="float"/>
   </message>
 
-  <!-- 251 is free -->
+  <message name="BMP_ALTITUDE" id="251">
+    <field name="INIT_TEMP_AIRFIELD"         type="float"  unit="K"/>
+    <field name="INIT_PRESS_AIRFIELD"        type="float"  unit="Pa"/>
+    <field name="INIT_CALCULATED_TEMP_MSL"   type="float"  unit="K"/>
+    <field name="INIT_CALCULATED_PRESS_MSL"  type="float"  unit="Pa"/>
+    <field name="TRUE_ALT_CURRENT_COND"      type="float"  unit="m"/>
+    <field name="PRESSURE_ALT_ISA_COND"      type="int32"  unit="m"/>
+    <field name="GROUND_ALT_FLIGHT_PLAN"     type="float"  unit="m"/>
+    <field name="CLIMB_RATE"                 type="float"  unit="m/s"/>
+    <field name="MEAS_AVERAGING_PERIOD"      type="float"  unit="s"/>
+   </message>
+
   <!-- 252 is free -->
 
   <message name="I2C_ERRORS" id="253">

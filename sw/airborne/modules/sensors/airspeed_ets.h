@@ -49,6 +49,10 @@ extern uint16_t airspeed_ets_offset;
 extern bool_t airspeed_ets_valid;
 extern float airspeed_ets;
 
+//Added lines by HW
+extern float ets_air_density;     //Calculated air density (kg/m3)
+//End of added lines by HW
+
 extern struct i2c_transaction airspeed_ets_i2c_trans;
 
 extern void airspeed_ets_init(void);

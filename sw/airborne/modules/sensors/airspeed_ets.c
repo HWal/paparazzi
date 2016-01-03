@@ -61,7 +61,12 @@ PRINT_CONFIG_MSG("USE_AIRSPEED_ETS automatically set to TRUE")
 
 #define AIRSPEED_ETS_ADDR 0xEA
 #ifndef AIRSPEED_ETS_SCALE
-#define AIRSPEED_ETS_SCALE 1.8
+//Out-commented lines by HW
+//#define AIRSPEED_ETS_SCALE 1.8
+//End of out-commented lines by HW
+//Added lines by HW
+#define AIRSPEED_ETS_SCALE 1.98448
+//End of added lines by HW
 #endif
 #ifndef AIRSPEED_ETS_OFFSET
 #define AIRSPEED_ETS_OFFSET 0
@@ -91,6 +96,10 @@ bool_t airspeed_ets_valid;
 float airspeed_ets;
 int airspeed_ets_buffer_idx;
 float airspeed_ets_buffer[AIRSPEED_ETS_NBSAMPLES_AVRG];
+
+//Added lines by HW
+float ets_air_density;   //Calculated air density (kg/m3)
+//End of added lines by HW
 
 struct i2c_transaction airspeed_ets_i2c_trans;
 
@@ -180,13 +189,29 @@ void airspeed_ets_read_event(void)
       }
     }
     // Convert raw to m/s
+
+    //Added lines by HW
+    //Universal gas constant for air = 287.053
+    ets_air_density = air_data.pressure / (287.053 * (air_data.temperature + 273.15));
+    //End of added lines by HW
+
 #ifdef AIRSPEED_ETS_REVERSE
     if (airspeed_ets_offset_init && airspeed_ets_raw < airspeed_ets_offset) {
-      airspeed_tmp = AIRSPEED_ETS_SCALE * sqrtf((float)(airspeed_ets_offset - airspeed_ets_raw)) - AIRSPEED_ETS_OFFSET;
+      //Added lines by HW
+      airspeed_tmp = sqrtf((2./ets_air_density) * AIRSPEED_ETS_SCALE * (airspeed_ets_offset - airspeed_ets_raw)) - AIRSPEED_ETS_OFFSET;
+      //End of added lines by HW
+      //Out-commented lines by HW
+      //airspeed_tmp = AIRSPEED_ETS_SCALE * sqrtf((float)(airspeed_ets_offset - airspeed_ets_raw)) - AIRSPEED_ETS_OFFSET;
+      //End of out-commented lines by HW
     }
 #else
     if (airspeed_ets_offset_init && airspeed_ets_raw > airspeed_ets_offset) {
-      airspeed_tmp = AIRSPEED_ETS_SCALE * sqrtf((float)(airspeed_ets_raw - airspeed_ets_offset)) - AIRSPEED_ETS_OFFSET;
+      //Added lines by HW
+      airspeed_tmp = sqrtf((2./ets_air_density) * AIRSPEED_ETS_SCALE * (airspeed_ets_raw - airspeed_ets_offset)) - AIRSPEED_ETS_OFFSET;
+      //End of added lines by HW
+      //Out-commented lines by HW
+      //airspeed_tmp = AIRSPEED_ETS_SCALE * sqrtf((float)(airspeed_ets_raw - airspeed_ets_offset)) - AIRSPEED_ETS_OFFSET;
+      //End of out-commented lines by HW
     }
 #endif
     else {
@@ -216,6 +241,10 @@ void airspeed_ets_read_event(void)
 #endif
 #if AIRSPEED_ETS_SYNC_SEND
     DOWNLINK_SEND_AIRSPEED_ETS(DefaultChannel, DefaultDevice, &airspeed_ets_raw, &airspeed_ets_offset, &airspeed_ets);
+// Added lines by HW
+#else
+    RunOnceEvery(10, DOWNLINK_SEND_AIRSPEED_ETS(DefaultChannel, DefaultDevice, &airspeed_ets_raw, &airspeed_ets_offset, &airspeed_ets, &ets_air_density));
+// End of added lines by HW
 #endif
   } else {
     airspeed_ets = 0.0;

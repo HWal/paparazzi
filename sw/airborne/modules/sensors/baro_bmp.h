@@ -35,6 +35,22 @@
 
 extern struct Bmp085 baro_bmp;
 
+//Added lines by HW
+# define BARO_BMP_PMSL 101325.0   //ISA standard pressure at MSL (Pa)
+# define BARO_BMP_TMSL 288.15     //ISA standard temperature at MSL (K * 10)
+# define G0 9.80665               //g (m/(s*s))
+# define L -.0065                 //ISA standard temperature lapse rate (K/m)
+# define RGAS 287.053             //gas constant for air (J/kg/K)
+# define RH 0                     //relative humidity (no unit)
+extern float baro_bmp_tcal;       //Measured averaged temperature for calculation to MSL (K * 10)
+extern float baro_bmp_pcal;       //Measured averaged pressure for calculation to MSL (Pa)
+extern float baro_bmp_tmsl;       //Init calculated temperature at MSL (K * 10)
+extern float baro_bmp_pmsl;       //Init calculated pressure at MSL (Pa)
+extern float baro_cal_altitude;   //Calculated true altitude
+extern float bmp_ground_alt;      //ground_alt from Flight plan
+extern float vario_value, vario_time_interval; //Variometer values
+//End of added lines by HW
+
 /// new measurement every 3rd baro_bmp_periodic
 #define BARO_BMP_DT (BARO_BMP_PERIODIC_PERIOD / 3)
 
