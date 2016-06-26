@@ -47,6 +47,12 @@ LABLGTK2_MM := $(shell echo $(LABLGTK2_VER) | cut -f1,2 -d.)
 ifeq ($(shell echo '$(LABLGTK2_MM)>=2.18' | bc),1)
 CAMLP4_DEFS = -DGDK_NATIVE_WINDOW
 endif
+# workaround wrong reported version of lablgtk
+# see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=822949 and https://bugs.launchpad.net/ubuntu/+source/lablgtk2/+bug/1577236
+LABLGTK2_DEB := $(shell LC_ALL=C apt-cache policy liblablgtk2-ocaml | grep Installed | awk '{print $$2}' 2>/dev/null)
+ifneq (,$(findstring 2.18.3+dfsg-1, $(LABLGTK2_DEB)))
+CAMLP4_DEFS = -DGDK_NATIVE_WINDOW
+endif
 CAMLP4_DEFS ?=
 PP_OPTS = -pp "camlp4o pa_macro.cmo $(CAMLP4_DEFS)"
 
@@ -114,14 +120,14 @@ compass : compass.ml
 
 
 clean:
-	$(Q)rm -f *~* *.cm* *.o *.out *.opt map2d gcs .depend gtk_strip.ml gtk_setting_time.ml gtk_save_settings.ml compass ant_track ant_track_pmm test_enose actuators
+	$(Q)rm -f *~* *.cm* *.o *.out *.opt map2d gcs .depend gtk_strip.ml gtk_setting_time.ml gtk_save_settings.ml compass ant_track ant_track_pmm actuators
 
 .PHONY: all opt clean
 
 
 CC = gcc
 CFLAGS=-g -O2 -Wall $(shell pkg-config gtk+-2.0 --cflags) -fPIC
-LDFLAGS=$(shell pkg-config gtk+-2.0 --libs) -s -lglibivy
+LDFLAGS=$(shell pkg-config gtk+-2.0 --libs) -s -lglibivy -lm -lpcre
 
 
 ant_track : ant_track.c
@@ -129,9 +135,6 @@ ant_track : ant_track.c
 
 ant_track_pmm : ant_track_pmm.c
 	$(CC) $(CFLAGS) -g -o $@ $^ $(LDFLAGS)
-
-test_enose : test_enose.c sliding_plot.c
-	$(CC) $(CFLAGS) -g -o $@ $^ $(LDFLAGS) -lgtkdatabox
 
 actuators : actuators.c
 	$(CC) $(CFLAGS) -g -o $@ $^ $(LDFLAGS)
