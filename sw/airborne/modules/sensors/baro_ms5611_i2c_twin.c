@@ -141,7 +141,7 @@ void baro_ms5611_twin_event(void)
   ms5611_i2c_event(&baro_ms5611_2);
 
   // only if data is available from both baros
-  if ((baro_ms5611_1.data_available) && (baro_ms5611_1.data_available)) {
+  if ((baro_ms5611_1.data_available) && (baro_ms5611_2.data_available)) {
     if (!offset_ok) {
       if (offset_count < 50) {
         if ((baro_ms5611_1.data.pressure > 90000) && (baro_ms5611_1.data.pressure < 110000)) {
@@ -219,13 +219,10 @@ void baro_ms5611_twin_event(void)
                               &baro_ms5611_2.data.d1, &baro_ms5611_2.data.d2,
                               &fbaroms_2, &temp_2,
                               &fixed_press_offset,
-                              &baro_ms5611_tcal,
-                              &baro_ms5611_pcal,
                               &baro_ms5611_tmsl,
                               &baro_ms5611_pmsl,
                               &baro_cal_altitude,
-                              &baro_ms5611_alt,
-                              &ms5611_ground_alt);
+                              &baro_ms5611_alt);
 #endif
   }
 }

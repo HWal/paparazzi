@@ -974,14 +974,11 @@
     <field name="d2_2"                        type="uint32"/>
     <field name="pressure_baro_2"             type="float"  unit="hPa" format="%.2f"/>
     <field name="temp_2"                      type="float"  unit="deg_celsius" format="%.2f"/>
-    <field name="fixed_offset_baro_1_baro_2"  type="int32"/>
-    <field name="measured_temp_on_airstrip"   type="float"  unit="K" format="%.2f"/>
-    <field name="measured_press_on_airstrip"  type="float"  unit="Pa" format="%.2f"/>
-    <field name="calculated_temp_at_MSL"      type="float"  unit="K" format="%.2f"/>
-    <field name="calculated_press_at_MSL"     type="float"  unit="Pa" format="%.2f"/>
-    <field name="calculated_true_alt_amsl"    type="float"  unit="m" format="%.2f"/>
-    <field name="pressure_alt_at_isa_cond"    type="float"  unit="m" format="%.2f"/>
-    <field name="ground_alt_from_flight_plan" type="float"  unit="m" format="%.2f"/>
+    <field name="offset_baro_1_baro_2"        type="int32"/>
+    <field name="calc_temp_msl"               type="float"  unit="K" format="%.2f"/>
+    <field name="calc_press_msl"              type="float"  unit="Pa" format="%.2f"/>
+    <field name="calc_alt_amsl"               type="float"  unit="m" format="%.2f"/>
+    <field name="pressure_alt_isa_cond"       type="float"  unit="m" format="%.2f"/>
   </message>
 
   <!-- <message name="MS5611_COEFF" id="117">
