@@ -1,0 +1,31 @@
+<!DOCTYPE module SYSTEM "module.dtd">
+
+<module name="imu_sen10121" dir="imu">
+  <doc>
+    <description>
+      SEN10121 IMU.
+      - Accelerometer: ADXL345 via I2C
+      - Gyroscope: ITG3200 via I2C
+    </description>
+    <configure name="IMU_SEN10121_I2C_DEV" value="i2c0" description="I2C device to use"/>
+  </doc>
+  <autoload name="imu_common"/>
+  <autoload name="imu_nps"/>
+  <header>
+    <file name="imu_sen10121.h" dir="subsystems/imu"/>
+  </header>
+  <init fun="imu_sen10121_init()"/>
+  <periodic fun="imu_sen10121_periodic()"/>
+  <event fun="imu_sen10121_event()"/>
+  <makefile target="!sim|nps|fbw">
+    <configure name="IMU_SEN10121_I2C_DEV" default="i2c2" case="lower|upper"/>
+    <define name="IMU_SEN10121_I2C_DEV" value="$(IMU_SEN10121_I2C_DEV_LOWER)"/>
+    <define name="USE_$(IMU_SEN10121_I2C_DEV_UPPER)"/>
+
+    <define name="IMU_TYPE_H" value="imu/imu_sen10121.h" type="string"/>
+
+    <file name="adxl345_i2c.c" dir="peripherals"/>
+    <file name="itg3200.c" dir="peripherals"/>
+    <file name="imu_sen10121.c" dir="subsystems/imu"/>
+  </makefile>
+</module>
