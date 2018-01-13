@@ -1,0 +1,41 @@
+
+  
+<?xml version="1.0"?>
+<!--
+Taranis_1.xml for Twinstar II by Helge 2015-12-01
+Radio transmits 8 channels
+-->
+
+<!--
+Attributes of root (Radio) tag :
+name: name of RC
+data_min: min width of a pulse to be considered as a data pulse
+data_max: max width of a pulse to be considered as a data pulse
+sync_min: min width of a pulse to be considered as a synchro pulse
+sync_max: max width of a pulse to be considered as a synchro pulse
+min, max and sync are expressed in micro-seconds
+pulse_type: positive or negative pulse
+-->
+
+<!-- 
+Attributes of channel tag :
+ctl: name of the command on the transmitter - only for displaying
+function: logical command
+averaged: channel filtered through several frames (for discrete commands)
+min: minimum pulse length (micro-seconds)
+max: maximum pulse length (micro-seconds)
+neutral: neutral pulse length (micro-seconds)
+Note: a command may be reversed by exchanging min and max values
+-->
+
+<!DOCTYPE radio SYSTEM "radio.dtd">
+<radio name="TARANIS_1" data_min="900" data_max="2100" sync_min="4000" sync_max="15000" pulse_type="NEGATIVE">
+  <channel ctl="right_stick_horiz" function="ROLL" min="990" neutral="1503" max="2014" average="0"/>
+  <channel ctl="right_stick_vert" function="PITCH" min="991" neutral="1505" max="2015" average="0"/>
+  <channel ctl="left_stick_vert" function="THROTTLE" min="1078" neutral="1078" max="1984" average="0"/>
+  <channel ctl="left_stick_horiz" function="YAW" min="991" neutral="1503" max="2015" average="0"/>
+  <channel ctl="L_Slider" function="EXTRA_1" min="991" neutral="1504" max="2015" average="0"/>
+  <channel ctl="L_Pot" function="UNUSED_CH6" min="991" neutral="1500" max="2015" average="0"/>
+  <channel ctl="R_Pot" function="UNUSED_CH7" min="991" neutral="1500" max="2015" average="0"/>
+  <channel ctl="SW_C" function="MODE" min="2015" neutral="1503" max="991" average="10"/>
+</radio>

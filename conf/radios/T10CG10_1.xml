@@ -1,0 +1,43 @@
+
+  
+<?xml version="1.0"?>
+<!--
+T10CG10_1.xml for Twinstar II by Helge 2010-06-19
+Radio is set to 7ch mode, transmits 7 channels
+Radio file needs 8 channels because the ppm encoder card
+receives 7 channels and transmits 8 channels
+-->
+
+<!--
+Attributes of root (Radio) tag :
+name: name of RC
+data_min: min width of a pulse to be considered as a data pulse
+data_max: max width of a pulse to be considered as a data pulse
+sync_min: min width of a pulse to be considered as a synchro pulse
+sync_max: max width of a pulse to be considered as a synchro pulse
+min, max and sync are expressed in micro-seconds
+pulse_type: positive or negative pulse
+-->
+
+<!-- 
+Attributes of channel tag :
+ctl: name of the command on the transmitter - only for displaying
+function: logical command
+averaged: channel filtered through several frames (for discrete commands)
+min: minimum pulse length (micro-seconds)
+max: maximum pulse length (micro-seconds)
+neutral: neutral pulse length (micro-seconds)
+Note: a command may be reversed by exchanging min and max values
+-->
+
+<!DOCTYPE radio SYSTEM "radio.dtd">
+<radio name="T10CG10_1" data_min="900" data_max="2100" sync_min="5000" sync_max="15000" pulse_type="POSITIVE">
+  <channel ctl="right_stick_horiz" function="ROLL" min="1107" neutral="1523" max="1932" average="0"/>
+  <channel ctl="right_stick_vert" function="PITCH" min="1107" neutral="1519" max="1932" average="0"/>
+  <channel ctl="left_stick_vert" function="THROTTLE" min="1107" neutral="1107" max="1929" average="0"/>
+  <channel ctl="left_stick_horiz" function="YAW" min="1932" neutral="1521" max="1107" average="0"/>
+  <channel ctl="switch_G" function="UNUSED_CH5" min="963" neutral="963" max="2069" average="10"/>
+  <channel ctl="VRA" function="EXTRA_1" min="964" neutral="1489" max="2070" average="0"/>
+  <channel ctl="VRC" function="UNUSED_CH7" min="967" neutral="1511" max="2072" average="0"/>
+  <channel ctl="switch_C" function="MODE" min="2073" neutral="1520" max="966" average="10"/>
+</radio>
