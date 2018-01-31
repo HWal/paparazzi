@@ -5,14 +5,14 @@
     <mode name="default">
       <message name="AUTOPILOT_VERSION"   period="11.1"/>
       <message name="ALIVE"               period="5.1"/>
-      <message name="GPS"                 period="1.0"/>
-      <message name="NAVIGATION"          period="2.5"/>
-      <message name="ATTITUDE"            period="0.2"/>
+      <message name="GPS"                 period="0.25"/>
+      <message name="NAVIGATION"          period="1."/>
+      <message name="ATTITUDE"            period="0.1"/>
       <message name="ESTIMATOR"           period="0.5"/>
       <message name="ENERGY"              period="11.1"/>
       <message name="WP_MOVED"            period="0.5"/>
       <message name="CIRCLE"              period="1.05"/>
-      <message name="DESIRED"             period="0.5"/>
+      <message name="DESIRED"             period="0.3"/>
       <message name="BAT"                 period="5.0"/>
       <message name="SEGMENT"             period="1.2"/>
       <message name="CALIBRATION"         period="2.1"/>
